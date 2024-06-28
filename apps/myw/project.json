@@ -1,0 +1,44 @@
+{
+  "name": "myw",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/myw/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "outputPath": "dist/apps/myw",
+        "main": "apps/myw/src/main.tsx",
+        "tsConfig": "apps/myw/tsconfig.app.json",
+        "rspackConfig": "apps/myw/rspack.config.js",
+        "assets": ["apps/myw/src/favicon.ico", "apps/myw/src/assets"]
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production",
+          "optimization": true,
+          "sourceMap": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/rspack:dev-server",
+      "options": {
+        "buildTarget": "myw:build:development"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "myw:build:production"
+        }
+      }
+    }
+  }
+}
